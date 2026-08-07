@@ -12,9 +12,9 @@ const Hero = () => {
         bg-cover bg-no-repeat min-h-screen'>
 
             <div className='text-center mb-6'>
-                <h1 className='text-3xl sm:text-5xl md:text-6xl 2xl:text-7xl font-semibold  mx-auto leading-[1.2]'>Create amazing content <br /> <span className='text-primary'>with AI tools</span></h1>
-                <p>Tranform your content creation with our suite of premium AI tools.
-                    Write articles, generate images,and  enhance your workflow. </p>
+                <h1 className='text-3xl sm:text-5xl md:text-6xl 2xl:text-7xl font-semibold  mx-auto leading-[1.2]'>Create Next-Level  Content<br /> <span className='text-primary'>with AI tools</span></h1>
+                <p>Elevate your content creation with our collection of advanced AI tools. Write engaging articles, generate stunning images, and streamline your creative workflow.
+                </p>
             </div>
 
             <div className='flex flex-wrap justify-center gap-4 text-sm max-sm:text-xs'>
