@@ -9,6 +9,7 @@ import { SquarePen, Hash, Image, Eraser, Scissors, FileText } from 'lucide-react
 import ai_gen_img_1 from "./ai_gen_img_1.png";
 import ai_gen_img_2 from "./ai_gen_img_2.png";
 import ai_gen_img_3 from "./ai_gen_img_3.png";
+import gloryAI_violet from "./gloryAI_violet.png";
 
 export const assets = {
     logo,
@@ -18,6 +19,7 @@ export const assets = {
     star_dull_icon,
     profile_img_1,
     arrow_icon,
+    gloryAI_violet,
 };
 
 export const AiToolsData = [
