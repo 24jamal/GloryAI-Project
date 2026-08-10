@@ -62,7 +62,7 @@ const GenerateImages = () => {
                 </div>
                 <div className='flex-1 flex justify-center items-center'>
                     <div className='text-sm  flex flex-col items-center  gap-5 text-gray-400'>
-                        <Image className='w-9 h-9 text-[#00AD25]' />
+                        <Image className='w-9 h-9' />
                         <p>Enter a topic and click "Generate title" to get started</p>
                     </div>
                 </div>
