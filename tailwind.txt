@@ -1,0 +1,37 @@
+1. px-2 = x-axis distance (Horizontal)
+
+2. py-3 = y-axis distance (Horizontal)
+
+3. flex = adjusts the objects/elements in div in box 
+
+4. border = Draws Box outline for elements
+
+5. cursor-pointer = pointer shows when we points the corresponding html element
+
+6. rounded-full = round border
+
+7. mt-3 = add margin on top of element
+
+8. text-sm = Increase font size (Variants : text-xl)
+
+9. font-medium = Makes the letters bold (Variants : font-semibold)
+
+10. flex gap-3 = used to add space between child elements inside a flex or grid container
+
+11. rounded-lg border border-gray-200 = creates rounded border with border color with light grey
+
+
+-------------------------------------------
+
+import React from "react";
+
+const App = () => {
+
+    return (
+        <div class = rounded-lg border border-gray-200  >
+        App
+        </div>
+    )
+}
+
+export default App
