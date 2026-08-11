@@ -5,7 +5,7 @@ import axios from "axios";
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
 import { upload } from "../configs/multer.js";
-import pdf from "pdf-parse/lib/pdf-parse.js"
+import pdfParse from "pdf-parse";
 
 const AI = new OpenAI({
     apiKey: process.env.GEMINI_API_KEY,
@@ -156,7 +156,7 @@ export const removeImageBackground = async (req, res) => {
     try {
 
         const { userId } = req.auth();
-        const { image } = req.file;
+        const image = req.file;
         const plan = req.plan;
 
         if (plan !== 'premium') {
@@ -195,7 +195,7 @@ export const removeImageObject = async (req, res) => {
 
         const { userId } = req.auth();
         const { object } = req.body;
-        const { image } = req.file;
+        const image = req.file;
         const plan = req.plan;
 
         if (plan !== 'premium') {
@@ -205,7 +205,7 @@ export const removeImageObject = async (req, res) => {
         const { public_id } = await cloudinary.uploader.upload(image.path)
 
         const imageUrl = await cloudinary.url(public_id, {
-            transformation: [{ effect: `gen_remove:${object}` }],
+            transformation: [{ effect: `gen_remove:prompt_${object}` }],
             resource_type: 'image'
         })
 
@@ -243,7 +243,7 @@ export const resumeReview = async (req, res) => {
         }
 
         const dataBuffer = fs.readFileSync(resume.path)
-        const pdfData = await pdf(dataBuffer)
+        const pdfData = await pdfParse(dataBuffer)
 
         const prompt = `Review the following resume and provide constructive feedback on its strength, weaknesses, and areas for improvement. Resume Content: \n\n ${pdfData.text}`
 
@@ -258,7 +258,7 @@ export const resumeReview = async (req, res) => {
             ],
 
             temperature: 0.7,
-            max_tokens: 1000
+            max_tokens: 2000
         });
 
 
@@ -268,7 +268,7 @@ export const resumeReview = async (req, res) => {
             (${userId}, 'Review the uploaded resume', ${content}, 'resume-review')`;
 
 
-        res.json({ success: true, content: imageUrl });
+        res.json({ success: true, content: content });
     }
 
     catch (error) {
