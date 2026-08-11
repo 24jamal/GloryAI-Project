@@ -26,7 +26,7 @@ export const generateArticle = async (req, res) => {
         }
 
         const response = await AI.chat.completions.create({
-            model: "gemini-3.6-flash",
+            model: process.env.GEMINI_MODEL,
             messages: [
                 {
                     role: "user",
