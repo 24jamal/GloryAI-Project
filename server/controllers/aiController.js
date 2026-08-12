@@ -159,6 +159,14 @@ export const removeImageBackground = async (req, res) => {
         const image = req.file;
         const plan = req.plan;
 
+        if (!image) {
+            return res.status(400).json({
+                success: false,
+                message: 'No image uploaded'
+            });
+        }
+        console.log("path :: ", image.path);
+
         if (plan !== 'premium') {
             return res.json({ success: false, message: "This feature is only available for premium subscriptions" })
         }
