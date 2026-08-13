@@ -16,7 +16,7 @@ export const generateArticle = async (req, res) => {
 
     try {
 
-        const { userId } = req.auth();
+        const { userId } = req;
         const { prompt, length } = req.body;
         const plan = req.plan;
         const free_usage = req.free_usage;
@@ -66,7 +66,7 @@ export const generateBlogTitle = async (req, res) => {
 
     try {
 
-        const { userId } = req.auth();
+        const { userId } = req;
         const { prompt } = req.body;
         const plan = req.plan;
         const free_usage = req.free_usage;
@@ -117,7 +117,7 @@ export const generateImage = async (req, res) => {
 
     try {
 
-        const { userId } = req.auth();
+        const { userId } = req;
         const { prompt, publish } = req.body;
         const plan = req.plan;
 
@@ -126,7 +126,7 @@ export const generateImage = async (req, res) => {
         }
 
         const formData = new FormData()
-        formData.append('prompt', 'shot of vaporwave fashion dog in miami')
+        formData.append('prompt', prompt)
         const { data } = await axios.post("https://clipdrop-api.co/text-to-image/v1", formData, {
             headers: { 'x-api-key': process.env.CLIPDROP_API_KEY, },
             responseType: 'arraybuffer'
@@ -155,7 +155,7 @@ export const removeImageBackground = async (req, res) => {
 
     try {
 
-        const { userId } = req.auth();
+        const { userId } = req;
         const image = req.file;
         const plan = req.plan;
 
@@ -201,7 +201,7 @@ export const removeImageObject = async (req, res) => {
 
     try {
 
-        const { userId } = req.auth();
+        const { userId } = req;
         const { object } = req.body;
         const image = req.file;
         const plan = req.plan;
@@ -238,7 +238,7 @@ export const resumeReview = async (req, res) => {
 
     try {
 
-        const { userId } = req.auth();
+        const { userId } = req;
         const resume = req.file;
         const plan = req.plan;
 
