@@ -20,6 +20,11 @@ export const generateArticle = async (req, res) => {
         const { prompt, length } = req.body;
         const plan = req.plan;
         const free_usage = req.free_usage;
+        const requestedLength = Number(length);
+
+        const maxTokens = Number.isFinite(requestedLength)
+            ? Math.min(Math.max(requestedLength, 100), 4100)
+            : 500;
 
         if (plan !== 'premium' && free_usage >= 10) {
             return res.json({ success: false, message: "Limit Reached. Upgrade to  continue." })
@@ -35,7 +40,7 @@ export const generateArticle = async (req, res) => {
             ],
 
             temperature: 0.7,
-            max_tokens: length
+            max_tokens: maxTokens
         });
 
         const content = response.choices[0].message.content
