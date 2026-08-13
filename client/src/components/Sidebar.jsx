@@ -1,6 +1,5 @@
-import { Show, useClerk, useUser } from '@clerk/react'
-import { Hash, House, SquarePen, Image, Eraser, Scissors, FileText, Users, LogOut } from 'lucide-react'
-import React from 'react'
+import { useClerk, useUser } from '@clerk/react'
+import { Hash, House, SquarePen, Image, Eraser, Scissors, FileText, Users, LogOut, Crown } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 
 const navItems = [
@@ -12,6 +11,7 @@ const navItems = [
     { to: '/ai/remove-object', label: 'Remove Object', Icon: Scissors },
     { to: '/ai/review-resume', label: 'Review Resume', Icon: FileText },
     { to: '/ai/community', label: 'Community', Icon: Users },
+    { to: '/ai/plan', label: 'Plans', Icon: Crown },
 
 ]
 
@@ -50,10 +50,7 @@ const Sidebar = ({ sidebar, setSidebar }) => {
                     <div>
                         <h1 className='text-sm font-medium'>{user.fullName}</h1>
                         <p className="text-xs text-gray-500">
-                            <Show when={{ plan: "premium" }} fallback={<>Free</>}>
-                                Premium
-                            </Show>{" "}
-                            Plan
+                            {user.publicMetadata?.plan === 'premium' ? 'Premium' : 'Free'} Plan
                         </p>
                     </div>
                 </div>

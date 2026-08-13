@@ -1,14 +1,26 @@
-//Middleware to check userId and hasPremiumPlan
+// Middleware to check userId and Razorpay-backed subscription entitlement.
 
-import { clerkClient } from "@clerk/express";
+import { clerkClient, getAuth } from "@clerk/express";
 
 export const auth = async (req, res, next) => {
 
     try {
-        const { userId, has } = await req.auth();
-        const hasPremiumPlan = await has({ plan: 'premium' })
+        const { isAuthenticated, userId } = getAuth(req);
+        if (!isAuthenticated || !userId) {
+            return res.status(401).json({ success: false, message: "Unauthorized" });
+        }
 
+        req.userId = userId;
         const user = await clerkClient.users.getUser(userId);
+        const metadata = user.privateMetadata || {};
+        const subscriptionEndsAt = Number(metadata.razorpaySubscriptionCurrentEnd);
+        // Razorpay changes `authenticated` to `active` asynchronously after
+        // the verified Checkout mandate. Do not make the customer wait for
+        // that webhook/state transition to use the plan.
+        const hasPremiumPlan = metadata.razorpaySubscriptionStatus === 'authenticated'
+            || (metadata.razorpaySubscriptionStatus === 'active'
+                && Number.isFinite(subscriptionEndsAt)
+                && subscriptionEndsAt > Math.floor(Date.now() / 1000));
 
         if (!hasPremiumPlan && user.privateMetadata.free_usage) {
             req.free_usage = user.privateMetadata.free_usage

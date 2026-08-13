@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { dummyCreationData } from '../assets/assets';
-import { Sparkle, Sparkles, Gem } from 'lucide-react';
-import { Show } from '@clerk/react'
+import { useEffect, useState } from 'react'
+import { Sparkles, Gem } from 'lucide-react';
+import { useUser } from '@clerk/react'
 import CreationItem from '../components/CreationItem';
 import axios from 'axios'
 import toast from 'react-hot-toast'
-import { getToken, useAuth } from '@clerk/react'
+import { useAuth } from '@clerk/react'
 
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -15,6 +14,7 @@ const Dashboard = () => {
 
     const [loading, setLoading] = useState(false)
     const { getToken } = useAuth()
+    const { user } = useUser()
 
 
 
@@ -69,10 +69,7 @@ const Dashboard = () => {
                         <p className='text-sm'>Active Plan</p>
                         <h2 className='text-xl font-semibold'>
 
-                            <Show when={{ plan: "premium" }} fallback={<>Free</>}>
-                                Premium
-                            </Show>{" "}
-                            Plan
+                            {user?.publicMetadata?.plan === 'premium' ? 'Premium' : 'Free'} Plan
                         </h2>
                     </div>
 
