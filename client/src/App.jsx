@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home"
 import Layout from "./pages/Layout"
@@ -10,10 +10,19 @@ import { RemoveBackground } from './pages/RemoveBackground';
 import ReviewResume from './pages/ReviewResume';
 import Community from './pages/Community';
 import RemoveObject from './pages/RemoveObject';
+import { useAuth } from '@clerk/react';
+import { Toaster } from 'react-hot-toast';
+import axios from 'axios';
+
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
 const App = () => {
+
+
+
   return (
     <div>
+      <Toaster />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/ai" element={<Layout />}>
